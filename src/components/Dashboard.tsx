@@ -15,6 +15,7 @@ const Dashboard: React.FC = () => {
   };
 
   const isDashboardHome = location.pathname === '/dashboard';
+  const isAdmin = user?.roles?.includes('ADMIN');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -47,12 +48,41 @@ const Dashboard: React.FC = () => {
                 >
                   My Businesses
                 </Link>
+                {isAdmin && (
+                  <>
+                    <Link
+                      to="/dashboard/admin/users"
+                      className={`px-3 py-2 rounded-md text-sm font-medium ${
+                        isActive('/dashboard/admin/users')
+                          ? 'bg-blue-100 text-blue-700'
+                          : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                    >
+                      User Management
+                    </Link>
+                    <Link
+                      to="/dashboard/admin/role-history"
+                      className={`px-3 py-2 rounded-md text-sm font-medium ${
+                        isActive('/dashboard/admin/role-history')
+                          ? 'bg-blue-100 text-blue-700'
+                          : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                    >
+                      Role History
+                    </Link>
+                  </>
+                )}
               </nav>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">
-                Welcome, {user?.firstName} {user?.lastName}
-              </span>
+              <div className="text-sm text-gray-700">
+                <span>Welcome, {user?.firstName} {user?.lastName}</span>
+                {isAdmin && (
+                  <span className="ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                    Admin
+                  </span>
+                )}
+              </div>
               <button
                 onClick={handleLogout}
                 className="btn-secondary text-sm"
@@ -85,6 +115,11 @@ const Dashboard: React.FC = () => {
                     <Link to="/dashboard/businesses/create" className="btn-outline">
                       Add New Business
                     </Link>
+                    {isAdmin && (
+                      <Link to="/dashboard/admin/users" className="btn-secondary">
+                        Admin Panel
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
