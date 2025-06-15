@@ -4,7 +4,7 @@ export interface User {
   lastName: string;
   email: string;
   phone: string;
-  roles: string[];
+  roles?: string[];
   emailVerified: boolean;
   phoneVerified: boolean;
 }

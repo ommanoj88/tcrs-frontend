@@ -25,6 +25,7 @@ import AlertDetail from './components/monitoring/AlertDetails';
 import UserManagement from './components/admin/UserManagement';
 import RoleHistory from './components/admin/RoleHistory';
 import ProtectedRoute from './components/ProtectedRoute';
+import AnalyticsDashboard from './components/analytics/AnalyticsDasboard';
 
 // Create wrapper components for specific routes
 const MyPaymentReports: React.FC = () => {
@@ -79,6 +80,9 @@ const App: React.FC = () => {
               <Route path="monitoring/setup/:businessId" element={<SetupCreditMonitoring />} />
               <Route path="monitoring/alerts" element={<AlertList />} />
               <Route path="monitoring/alerts/:alertId" element={<AlertDetail />} />
+
+              {/* Analytics Routes */}
+              <Route path="analytics" element={<AnalyticsDashboard />} />
               
               {/* Business Routes */}
               <Route path="businesses" element={<BusinessList />} />
