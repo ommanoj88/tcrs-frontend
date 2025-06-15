@@ -6,6 +6,8 @@ import { Business, BUSINESS_TYPE_LABELS, INDUSTRY_CATEGORY_LABELS } from '../../
 import { CreditReportResponse } from '../../types/credit';
 import PaymentAnalyticsDashboard from '../payment/PaymentAnalyticsDasboard';
 import PaymentHistoryList from '../payment/PaymentHistoryList';
+import TradeReferenceAnalytics from '../reference/TradeReferenceAnalytics';
+import TradeReferenceList from '../reference/TradeReferenceList';
 import LoadingSpinner from '../LoadingSpinner';
 
 const EnhancedBusinessDetailView: React.FC = () => {
@@ -132,6 +134,26 @@ const EnhancedBusinessDetailView: React.FC = () => {
             Overview
           </button>
           <button
+            onClick={() => handleTabChange('trade-references')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'trade-references'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Trade References
+          </button>
+          <button
+            onClick={() => handleTabChange('trade-analytics')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'trade-analytics'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Reference Analytics
+          </button>
+          <button
             onClick={() => handleTabChange('payment-analytics')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'payment-analytics'
@@ -234,12 +256,14 @@ const EnhancedBusinessDetailView: React.FC = () => {
               </div>
               <div className="card-body">
                 <dl className="space-y-4">
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Address</dt>
-                    <dd className="mt-1 text-sm text-gray-900">
-                      {business.address}
-                    </dd>
-                  </div>
+                  {business.address && (
+                    <div>
+                      <dt className="text-sm font-medium text-gray-500">Address</dt>
+                      <dd className="mt-1 text-sm text-gray-900">
+                        {business.address}
+                      </dd>
+                    </div>
+                  )}
                   <div>
                     <dt className="text-sm font-medium text-gray-500">City</dt>
                     <dd className="mt-1 text-sm text-gray-900">{business.city}</dd>
@@ -301,12 +325,18 @@ const EnhancedBusinessDetailView: React.FC = () => {
                 <h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
               </div>
               <div className="card-body">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <Link
                     to={`/dashboard/search/business/${business.id}/credit-report`}
                     className="btn-primary text-center"
                   >
                     Generate Credit Report
+                  </Link>
+                  <Link
+                    to={`/dashboard/reference/add/${business.id}`}
+                    className="btn-outline text-center"
+                  >
+                    Add Trade Reference
                   </Link>
                   <Link
                     to={`/dashboard/payment/add/${business.id}`}
@@ -315,14 +345,44 @@ const EnhancedBusinessDetailView: React.FC = () => {
                     Add Payment History
                   </Link>
                   <button
-                    onClick={() => handleTabChange('payment-analytics')}
+                    onClick={() => handleTabChange('trade-analytics')}
                     className="btn-outline"
                   >
-                    View Payment Analytics
+                    View Analytics
                   </button>
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {activeTab === 'trade-references' && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-gray-900">Trade References</h2>
+              <Link
+                to={`/dashboard/reference/add/${business.id}`}
+                className="btn-primary"
+              >
+                Add Trade Reference
+              </Link>
+            </div>
+            <TradeReferenceList businessId={business.id} />
+          </div>
+        )}
+
+        {activeTab === 'trade-analytics' && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-gray-900">Trade Reference Analytics</h2>
+              <Link
+                to={`/dashboard/reference/add/${business.id}`}
+                className="btn-primary"
+              >
+                Add Trade Reference
+              </Link>
+            </div>
+            <TradeReferenceAnalytics businessId={business.id} business={business} />
           </div>
         )}
 

@@ -14,13 +14,21 @@ import MyCreditReports from './components/credit/MyCreditReports';
 import AddPaymentHistory from './components/payment/AddPaymentHistory';
 import PaymentHistoryList from './components/payment/PaymentHistoryList';
 import PaymentAnalyticsDashboard from './components/payment/PaymentAnalyticsDasboard';
+import AddTradeReference from './components/reference/AddTradeReference';
+import TradeReferenceList from './components/reference/TradeReferenceList';
+import TradeReferenceAnalytics from './components/reference/TradeReferenceAnalytics';
+import ReferenceVerificationInterface from './components/reference/ReferenceVerificationInterface';
 import UserManagement from './components/admin/UserManagement';
 import RoleHistory from './components/admin/RoleHistory';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Create a wrapper component for My Payment Reports
+// Create wrapper components for specific routes
 const MyPaymentReports: React.FC = () => {
   return <PaymentHistoryList showBusinessInfo={true} />;
+};
+
+const MyTradeReferences: React.FC = () => {
+  return <TradeReferenceList showBusinessInfo={true} />;
 };
 
 const App: React.FC = () => {
@@ -53,6 +61,13 @@ const App: React.FC = () => {
               <Route path="payment/business/:businessId" element={<PaymentHistoryList />} />
               <Route path="payment/analytics/:businessId" element={<PaymentAnalyticsDashboard />} />
               <Route path="payment/my-reports" element={<MyPaymentReports />} />
+              
+              {/* Trade Reference Routes */}
+              <Route path="reference/add/:businessId" element={<AddTradeReference />} />
+              <Route path="reference/business/:businessId" element={<TradeReferenceList />} />
+              <Route path="reference/analytics/:businessId" element={<TradeReferenceAnalytics />} />
+              <Route path="reference/my-references" element={<MyTradeReferences />} />
+              <Route path="reference/verify" element={<ReferenceVerificationInterface />} />
               
               {/* Business Routes */}
               <Route path="businesses" element={<BusinessList />} />
