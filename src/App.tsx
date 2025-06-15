@@ -18,6 +18,10 @@ import AddTradeReference from './components/reference/AddTradeReference';
 import TradeReferenceList from './components/reference/TradeReferenceList';
 import TradeReferenceAnalytics from './components/reference/TradeReferenceAnalytics';
 import ReferenceVerificationInterface from './components/reference/ReferenceVerificationInterface';
+import CreditMonitoringDashboard from './components/monitoring/CreditMonitoringDashboard';
+import SetupCreditMonitoring from './components/monitoring/SetupCreditMonitoring';
+import AlertList from './components/monitoring/AlertList';
+import AlertDetail from './components/monitoring/AlertDetails';
 import UserManagement from './components/admin/UserManagement';
 import RoleHistory from './components/admin/RoleHistory';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -68,6 +72,13 @@ const App: React.FC = () => {
               <Route path="reference/analytics/:businessId" element={<TradeReferenceAnalytics />} />
               <Route path="reference/my-references" element={<MyTradeReferences />} />
               <Route path="reference/verify" element={<ReferenceVerificationInterface />} />
+              
+              {/* Credit Monitoring Routes */}
+              <Route path="monitoring" element={<CreditMonitoringDashboard />} />
+              <Route path="monitoring/setup" element={<SetupCreditMonitoring />} />
+              <Route path="monitoring/setup/:businessId" element={<SetupCreditMonitoring />} />
+              <Route path="monitoring/alerts" element={<AlertList />} />
+              <Route path="monitoring/alerts/:alertId" element={<AlertDetail />} />
               
               {/* Business Routes */}
               <Route path="businesses" element={<BusinessList />} />

@@ -1,5 +1,5 @@
 import { api } from '../config/api';
-import { Business } from '../types/business'; // ← Fixed: Import Business from business types
+import { Business } from '../types/business';
 import { BusinessSearchRequest, BusinessSearchResponse } from '../types/search';
 import { ApiResponse } from '../types/auth';
 
@@ -11,6 +11,31 @@ class BusinessSearchService {
         request
       );
       return response.data.data;
+    } catch (error: any) {
+      throw this.handleError(error);
+    }
+  }
+
+  // V3 COMPATIBILITY METHOD - Add this method to support the monitoring component
+  async searchBusinessesSimple(params: {
+    query: string;
+    page?: number;
+    size?: number;
+  }): Promise<{ businesses: Business[] }> {
+    try {
+      // Convert simple params to BusinessSearchRequest format
+      const searchRequest: BusinessSearchRequest = {
+        query: params.query,
+        page: params.page || 0,
+        size: params.size || 10
+      };
+
+      const response = await this.searchBusinesses(searchRequest);
+      
+      // Return in the format expected by the monitoring component
+      return {
+        businesses: response.businesses || []
+      };
     } catch (error: any) {
       throw this.handleError(error);
     }
