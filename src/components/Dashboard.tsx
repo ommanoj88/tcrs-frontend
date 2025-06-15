@@ -39,6 +39,16 @@ const Dashboard: React.FC = () => {
                   Dashboard
                 </Link>
                 <Link
+                  to="/dashboard/search"
+                  className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    isActive('/dashboard/search')
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  Search Businesses
+                </Link>
+                <Link
                   to="/dashboard/businesses"
                   className={`px-3 py-2 rounded-md text-sm font-medium ${
                     isActive('/dashboard/businesses')
@@ -106,11 +116,14 @@ const Dashboard: React.FC = () => {
                     Welcome to Trade Credit Reference System
                   </h2>
                   <p className="text-gray-600 mb-4">
-                    Check creditworthiness of businesses before offering trade credit.
+                    Search and evaluate businesses for trade credit decisions.
                   </p>
                   <div className="flex space-x-4">
-                    <Link to="/dashboard/businesses" className="btn-primary">
-                      Manage Businesses
+                    <Link to="/dashboard/search" className="btn-primary">
+                      Search Businesses
+                    </Link>
+                    <Link to="/dashboard/businesses" className="btn-outline">
+                      Manage My Businesses
                     </Link>
                     <Link to="/dashboard/businesses/create" className="btn-outline">
                       Add New Business
