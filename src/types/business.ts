@@ -11,6 +11,9 @@ export interface Business {
   city: string;
   state: string;
   pincode: string;
+    address?: string; // Add optional address field
+  phoneNumber?: string; // Add optional phone field
+  email?: string; // Add optional email field
   businessPhone?: string;
   businessEmail?: string;
   website?: string;

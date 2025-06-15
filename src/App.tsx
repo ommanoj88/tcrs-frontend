@@ -7,10 +7,21 @@ import Dashboard from './components/Dashboard';
 import BusinessList from './components/business/BusinessList';
 import CreateBusiness from './components/business/CreateBusiness';
 import BusinessSearch from './components/search/BusinessSearch';
-import BusinessDetailView from './components/search/BusinessDetailView';
+import EnhancedBusinessDetailView from './components/search/EnhancedBusinessDetailView';
+import GenerateCreditReport from './components/credit/GenerateCreditReport';
+import CreditReportDisplay from './components/credit/CreditReportDisplay';
+import MyCreditReports from './components/credit/MyCreditReports';
+import AddPaymentHistory from './components/payment/AddPaymentHistory';
+import PaymentHistoryList from './components/payment/PaymentHistoryList';
+import PaymentAnalyticsDashboard from './components/payment/PaymentAnalyticsDasboard';
 import UserManagement from './components/admin/UserManagement';
 import RoleHistory from './components/admin/RoleHistory';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// Create a wrapper component for My Payment Reports
+const MyPaymentReports: React.FC = () => {
+  return <PaymentHistoryList showBusinessInfo={true} />;
+};
 
 const App: React.FC = () => {
   return (
@@ -28,10 +39,26 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             >
+              {/* Search Routes */}
               <Route path="search" element={<BusinessSearch />} />
-              <Route path="search/business/:businessId" element={<BusinessDetailView />} />
+              <Route path="search/business/:businessId" element={<EnhancedBusinessDetailView />} />
+              
+              {/* Credit Report Routes */}
+              <Route path="search/business/:businessId/credit-report" element={<GenerateCreditReport />} />
+              <Route path="credit/report/:reportNumber" element={<CreditReportDisplay />} />
+              <Route path="credit/my-reports" element={<MyCreditReports />} />
+              
+              {/* Payment History Routes */}
+              <Route path="payment/add/:businessId" element={<AddPaymentHistory />} />
+              <Route path="payment/business/:businessId" element={<PaymentHistoryList />} />
+              <Route path="payment/analytics/:businessId" element={<PaymentAnalyticsDashboard />} />
+              <Route path="payment/my-reports" element={<MyPaymentReports />} />
+              
+              {/* Business Routes */}
               <Route path="businesses" element={<BusinessList />} />
               <Route path="businesses/create" element={<CreateBusiness />} />
+              
+              {/* Admin Routes */}
               <Route path="admin/users" element={<UserManagement />} />
               <Route path="admin/role-history" element={<RoleHistory />} />
             </Route>

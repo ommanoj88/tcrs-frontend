@@ -122,19 +122,21 @@ const BusinessSearchResults: React.FC<BusinessSearchResultsProps> = ({
               )}
 
               {/* Actions */}
-              <div className="flex space-x-2">
-                <Link
-                  to={`/dashboard/search/business/${business.id}`}
-                  className="flex-1 btn-primary text-center text-sm"
-                >
-                  View Details
-                </Link>
-                <Link
-                  to={`/dashboard/search/business/${business.id}/credit-report`}
-                  className="flex-1 btn-outline text-center text-sm"
-                >
-                  Credit Report
-                </Link>
+              <div className="space-y-2">
+                <div className="flex space-x-2">
+                  <Link
+                    to={`/dashboard/search/business/${business.id}`}
+                    className="flex-1 btn-outline text-center text-sm"
+                  >
+                    View Details
+                  </Link>
+                  <Link
+                    to={`/dashboard/search/business/${business.id}/credit-report`}
+                    className="flex-1 btn-primary text-center text-sm"
+                  >
+                    Credit Report
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

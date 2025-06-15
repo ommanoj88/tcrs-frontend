@@ -49,6 +49,16 @@ const Dashboard: React.FC = () => {
                   Search Businesses
                 </Link>
                 <Link
+                  to="/dashboard/credit/my-reports"
+                  className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    isActive('/dashboard/credit')
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  My Reports
+                </Link>
+                <Link
                   to="/dashboard/businesses"
                   className={`px-3 py-2 rounded-md text-sm font-medium ${
                     isActive('/dashboard/businesses')
@@ -116,23 +126,56 @@ const Dashboard: React.FC = () => {
                     Welcome to Trade Credit Reference System
                   </h2>
                   <p className="text-gray-600 mb-4">
-                    Search and evaluate businesses for trade credit decisions.
+                    Search businesses, generate credit reports, and make informed trade credit decisions.
                   </p>
-                  <div className="flex space-x-4">
-                    <Link to="/dashboard/search" className="btn-primary">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Link to="/dashboard/search" className="btn-primary text-center">
                       Search Businesses
                     </Link>
-                    <Link to="/dashboard/businesses" className="btn-outline">
-                      Manage My Businesses
+                    <Link to="/dashboard/credit/my-reports" className="btn-outline text-center">
+                      My Credit Reports
                     </Link>
-                    <Link to="/dashboard/businesses/create" className="btn-outline">
+                    <Link to="/dashboard/businesses" className="btn-outline text-center">
+                      My Businesses
+                    </Link>
+                    <Link to="/dashboard/businesses/create" className="btn-outline text-center">
                       Add New Business
                     </Link>
-                    {isAdmin && (
+                  </div>
+                  {isAdmin && (
+                    <div className="mt-4">
                       <Link to="/dashboard/admin/users" className="btn-secondary">
                         Admin Panel
                       </Link>
-                    )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="card">
+                  <div className="card-body text-center">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Search & Evaluate</h3>
+                    <p className="text-sm text-gray-600">
+                      Find and assess businesses for trade credit decisions
+                    </p>
+                  </div>
+                </div>
+                <div className="card">
+                  <div className="card-body text-center">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Credit Reports</h3>
+                    <p className="text-sm text-gray-600">
+                      Generate comprehensive creditworthiness assessments
+                    </p>
+                  </div>
+                </div>
+                <div className="card">
+                  <div className="card-body text-center">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Risk Management</h3>
+                    <p className="text-sm text-gray-600">
+                      Make informed decisions with detailed risk analysis
+                    </p>
                   </div>
                 </div>
               </div>
