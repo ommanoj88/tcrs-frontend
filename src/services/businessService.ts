@@ -47,6 +47,15 @@ class BusinessService {
       throw this.handleError(error);
     }
   }
+  async getAllBusinesses(): Promise<Business[]> {
+  try {
+    const response = await api.get<ApiResponse<Business[]>>('/api/businesses/all');
+    return response.data.data;
+  } catch (error: any) {
+    // Fallback to getMyBusinesses if getAllBusinesses doesn't exist
+    return this.getMyBusinesses();
+  }
+}
 
   private handleError(error: any): Error {
     if (error.response) {

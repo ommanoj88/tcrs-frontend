@@ -125,12 +125,21 @@ const BusinessList: React.FC = () => {
                   <p>Created: {new Date(business.createdAt).toLocaleDateString()}</p>
                 </div>
 
-                <Link
-                  to={`/dashboard/businesses/${business.id}`}
-                  className="block w-full text-center btn-outline"
-                >
-                  View Details
-                </Link>
+                {/* Action buttons section */}
+                <div className="flex space-x-2">
+                  <Link
+                    to={`/dashboard/businesses/${business.id}`}
+                    className="flex-1 text-center btn-outline"
+                  >
+                    View Details
+                  </Link>
+                  <Link 
+                    to={`/dashboard/kyc/${business.id}`}
+                    className="px-3 py-2 bg-purple-100 text-purple-700 rounded-md hover:bg-purple-200 transition-colors text-sm font-medium"
+                  >
+                    🔐 KYC
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

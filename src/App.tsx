@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -27,6 +27,10 @@ import RoleHistory from './components/admin/RoleHistory';
 import ProtectedRoute from './components/ProtectedRoute';
 import AnalyticsDashboard from './components/analytics/AnalyticsDasboard';
 
+// Import KYC components
+import KycOverview from './components/kyc/KycOverview';
+import KycDashboard from './components/kyc/KycDashboard';
+
 // Create wrapper components for specific routes
 const MyPaymentReports: React.FC = () => {
   return <PaymentHistoryList showBusinessInfo={true} />;
@@ -34,6 +38,12 @@ const MyPaymentReports: React.FC = () => {
 
 const MyTradeReferences: React.FC = () => {
   return <TradeReferenceList showBusinessInfo={true} />;
+};
+
+// KYC Wrapper component to extract businessId from URL params
+const KycDashboardWrapper: React.FC = () => {
+  const { businessId } = useParams<{ businessId: string }>();
+  return <KycDashboard businessId={parseInt(businessId || '0')} />;
 };
 
 const App: React.FC = () => {
@@ -73,6 +83,10 @@ const App: React.FC = () => {
               <Route path="reference/analytics/:businessId" element={<TradeReferenceAnalytics />} />
               <Route path="reference/my-references" element={<MyTradeReferences />} />
               <Route path="reference/verify" element={<ReferenceVerificationInterface />} />
+              
+              {/* KYC Routes - NEW SECTION */}
+              <Route path="kyc" element={<KycOverview />} />
+              <Route path="kyc/:businessId" element={<KycDashboardWrapper />} />
               
               {/* Credit Monitoring Routes */}
               <Route path="monitoring" element={<CreditMonitoringDashboard />} />

@@ -39,6 +39,14 @@ const DashboardLayout: React.FC = () => {
       description: 'Manage business profiles'
     },
     {
+      name: 'KYC Management',
+      path: '/dashboard/kyc',
+      icon: '🔐',
+      description: 'Document verification and compliance',
+      badge: 'New',
+      badgeColor: 'bg-purple-500'
+    },
+    {
       name: 'Credit Reports',
       path: '/dashboard/reports',
       icon: '📋',
@@ -89,6 +97,14 @@ const DashboardLayout: React.FC = () => {
       description: 'Manage system users'
     },
     {
+      name: 'KYC Verification',
+      path: '/dashboard/admin/kyc-verification',
+      icon: '✅',
+      description: 'Review and approve KYC documents',
+      badge: 'Admin',
+      badgeColor: 'bg-red-500'
+    },
+    {
       name: 'System Settings',
       path: '/dashboard/admin/settings',
       icon: '⚙️',
@@ -104,6 +120,9 @@ const DashboardLayout: React.FC = () => {
 
   // Helper functions to get user info
   const getUserDisplayName = () => {
+    if (user?.firstName && user?.lastName) {
+      return `${user.firstName} ${user.lastName}`;
+    }
     if (user?.email) {
       return user.email.split('@')[0]; // Use email prefix as display name
     }
@@ -111,6 +130,9 @@ const DashboardLayout: React.FC = () => {
   };
 
   const getUserInitial = () => {
+    if (user?.firstName) {
+      return user.firstName.charAt(0).toUpperCase();
+    }
     const displayName = getUserDisplayName();
     return displayName.charAt(0).toUpperCase();
   };
@@ -204,6 +226,7 @@ const DashboardLayout: React.FC = () => {
                     ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
                     : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                 }`}
+                title={item.description}
               >
                 <span className="mr-3 text-lg">{item.icon}</span>
                 <span className="flex-1">{item.name}</span>
@@ -234,9 +257,15 @@ const DashboardLayout: React.FC = () => {
                         ? 'bg-purple-50 text-purple-700 border-r-2 border-purple-700'
                         : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }`}
+                    title={item.description}
                   >
                     <span className="mr-3 text-lg">{item.icon}</span>
                     <span className="flex-1">{item.name}</span>
+                    {item.badge && (
+                      <span className={`ml-2 px-2 py-1 text-xs font-medium text-white rounded-full ${item.badgeColor}`}>
+                        {item.badge}
+                      </span>
+                    )}
                   </Link>
                 ))}
               </div>
@@ -329,6 +358,7 @@ const DashboardLayout: React.FC = () => {
               <Link
                 to="/dashboard/alerts"
                 className="p-2 rounded-full text-gray-600 hover:text-gray-900 hover:bg-gray-100 relative"
+                title="View alerts and notifications"
               >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM12 7v5m0 0l-3-3m3 3l3-3M9 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-3" />
@@ -376,6 +406,13 @@ const DashboardLayout: React.FC = () => {
                       >
                         <span className="mr-3">👤</span>
                         View Profile
+                      </Link>
+                      <Link
+                        to="/dashboard/kyc"
+                        className="flex items-center px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100"
+                      >
+                        <span className="mr-3">🔐</span>
+                        KYC Documents
                       </Link>
                       <Link
                         to="/dashboard/settings"
@@ -458,6 +495,13 @@ const DashboardLayout: React.FC = () => {
               >
                 <span className="mr-2">🏢</span>
                 Add Business
+              </Link>
+               <Link
+                to="/dashboard/kyc/upload"
+                className="flex items-center px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100 whitespace-nowrap"
+              >
+                <span className="mr-2">🔐</span>
+                Upload KYC
               </Link>
               <Link
                 to="/dashboard/reports/generate"
